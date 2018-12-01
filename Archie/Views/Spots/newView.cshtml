@@ -1,0 +1,35 @@
+﻿@{ 
+    var cenySpot = new Archie.Models.Spots()
+    {
+        dateInput = System.DateTime.Now,
+        goldVal = 13,
+        silverVal = 16,
+        platiniumVal = 66
+    };
+}
+<div class="spoty">
+    <h3>Example spot price</h3>
+  
+    <div class="details">
+        <p>Cena zlota: @cenySpot.goldVal.ToString()</p>
+        <p>Cena srebra: @cenySpot.silverVal.ToString()</p>
+        <p>Cena platyny: @cenySpot.platiniumVal.ToString()</p>
+        <p>Aktualne na dzien: @cenySpot.dateInput.ToString("g")</p>
+    </div>
+
+    @*
+        Casting to String in case to meet a null val : (
+        Multiple lines
+    *@
+    <p>
+        Current Price:
+        @if (cenySpot.goldVal == null)
+        {
+            @: [No]
+        }
+        else
+        {
+            <span>@cenySpot.goldVal.ToString("C")</span>
+        }
+    </p>
+</div>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Archie.Models.Spots>
+
+@{
+    ViewData["Title"] = "XList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>XList</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.dateInput)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.goldVal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.silverVal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.platiniumVal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateInput)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.goldVal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.silverVal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.platiniumVal)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

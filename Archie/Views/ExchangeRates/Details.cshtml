@@ -1,0 +1,43 @@
+﻿@model Archie.Models.ExchangeRate
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ExchangeRate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateInput)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dateInput)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PLN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PLN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EUR)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EUR)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GBP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GBP)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

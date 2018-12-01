@@ -1,0 +1,49 @@
+﻿@model Archie.Models.Trade
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Trade</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="transactionTime" class="control-label"></label>
+                <input asp-for="transactionTime" class="form-control" />
+                <span asp-validation-for="transactionTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amount" class="control-label"></label>
+                <input asp-for="amount" class="form-control" />
+                <span asp-validation-for="amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="closeRate" class="control-label"></label>
+                <input asp-for="closeRate" class="form-control" />
+                <span asp-validation-for="closeRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="rate" class="control-label"></label>
+                <input asp-for="rate" class="form-control" />
+                <span asp-validation-for="rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

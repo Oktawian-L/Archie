@@ -1,0 +1,50 @@
+﻿@model Archie.Models.Spots
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Spot</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="dateInput" class="control-label"></label>
+                <input asp-for="dateInput" class="form-control" />
+                <span asp-validation-for="dateInput" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="goldVal" class="control-label"></label>
+                <input asp-for="goldVal" class="form-control" />
+                <span asp-validation-for="goldVal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="silverVal" class="control-label"></label>
+                <input asp-for="silverVal" class="form-control" />
+                <span asp-validation-for="silverVal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="platiniumVal" class="control-label"></label>
+                <input asp-for="platiniumVal" class="form-control" />
+                <span asp-validation-for="platiniumVal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

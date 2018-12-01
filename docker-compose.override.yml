@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  archie:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  goldapi:
+    ports:
+      - "80"
+  cryptoapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "54532:80"
+      - "44373:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro
+  spotapi:
+    ports:
+      - "80"
+  kryptoapi:
+    ports:
+      - "80"
+  eventbus:
+    ports:
+      - "80"
+networks:
+  default:
+    external:
+      name: nat
+
+
+
+
+

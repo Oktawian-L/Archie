@@ -1,0 +1,62 @@
+version: '3.4'
+
+services:
+  archie:
+    image: ${DOCKER_REGISTRY}archie
+    links:
+    - goldapi
+    build:
+      context: .
+      dockerfile: Archie\Dockerfile
+     
+  mysql:
+    image: olasek/devsqlserver:latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+     SA_PASSWORD: "sqldevops"
+     ACCEPT_EULA: "Y"
+     MSSQL_PID: Developer
+
+  goldapi:
+    image: ${DOCKER_REGISTRY}goldapi
+    build:
+      context: .\GoldAPI
+      dockerfile: Dockerfile
+
+
+  cryptoapi:
+    image: ${DOCKER_REGISTRY}cryptoapi
+    build:
+      context: .
+      dockerfile: CryptoAPI\Dockerfile
+
+  exchangeapi:
+    image: exchange-api
+    ports:
+    - "5000:5000"
+ 
+    
+
+
+  spotapi:
+    image: ${DOCKER_REGISTRY}spotapi
+    build:
+      context: .\SpotAPI
+      dockerfile: Dockerfile
+
+
+  kryptoapi:
+    image: ${DOCKER_REGISTRY}kryptoapi
+    build:
+      context: .\KryptoAPI
+      dockerfile: Dockerfile
+
+
+  eventbus:
+    image: ${DOCKER_REGISTRY}eventbus
+    build:
+      context: .\EventBus
+      dockerfile: Dockerfile
+

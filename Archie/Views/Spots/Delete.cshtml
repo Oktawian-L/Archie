@@ -1,0 +1,46 @@
+﻿@model Archie.Models.Spots
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Spot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateInput)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dateInput)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.goldVal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.goldVal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.silverVal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.silverVal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.platiniumVal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.platiniumVal)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
