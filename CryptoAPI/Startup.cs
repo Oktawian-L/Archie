@@ -22,7 +22,7 @@ namespace CryptoAPI
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -49,7 +49,7 @@ namespace CryptoAPI
                 
             }
 
-            app.UseHttpsRedirection();
+            /*app.UseHttpsRedirection();
             app.UseMvc();
 
             HttpClient client = new HttpClient();
@@ -97,7 +97,7 @@ namespace CryptoAPI
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", err.Message);
                 }
-            }, null, startTimeSpan, periodTimeSpan);
+            }, null, startTimeSpan, periodTimeSpan);*/
         }
 
     }

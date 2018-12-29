@@ -1,62 +1,52 @@
 version: '3.4'
 
+
+
 services:
-  archie:
-    image: ${DOCKER_REGISTRY}archie
-    links:
-    - goldapi
-    build:
-      context: .
-      dockerfile: Archie\Dockerfile
-     
-  mysql:
+  sqldb:
     image: olasek/devsqlserver:latest
-    container_name: mssql
+    container_name: sqlarchiedb
     ports:
       - "1433:1433"
     environment:
-     SA_PASSWORD: "sqldevops"
+     SA_PASSWORD: "5uP3RC0mpl3Xp@55w0rD"
      ACCEPT_EULA: "Y"
      MSSQL_PID: Developer
 
-  goldapi:
-    image: ${DOCKER_REGISTRY}goldapi
-    build:
-      context: .\GoldAPI
-      dockerfile: Dockerfile
 
+  archiesystem:
+    image: olasek/archie
+    build:
+      context: .
+      dockerfile: Archie\Dockerfile
 
   cryptoapi:
-    image: ${DOCKER_REGISTRY}cryptoapi
+    image: olasek/cryptoapi
     build:
       context: .
       dockerfile: CryptoAPI\Dockerfile
 
+
+  goldapi:
+    image: olasek/goldapi
+    build:
+      context: .
+      dockerfile: GoldAPI\Dockerfile
+
   exchangeapi:
-    image: exchange-api
+    image: olasek/python
     ports:
     - "5000:5000"
- 
-    
 
-
-  spotapi:
-    image: ${DOCKER_REGISTRY}spotapi
+  suwak:
+    image: olasek/suwak
     build:
-      context: .\SpotAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Suwak\Dockerfile
 
 
-  kryptoapi:
-    image: ${DOCKER_REGISTRY}kryptoapi
+  diagram:
+    image: olasek/diagram
     build:
-      context: .\KryptoAPI
-      dockerfile: Dockerfile
-
-
-  eventbus:
-    image: ${DOCKER_REGISTRY}eventbus
-    build:
-      context: .\EventBus
-      dockerfile: Dockerfile
-
+      context: .
+      dockerfile: Diagram\Dockerfile

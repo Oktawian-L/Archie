@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Windows</DockerTargetOS>
-    <ProjectGuid>15bdc290-f62a-46ea-98f8-34c25a914dcb</ProjectGuid>
+    <ProjectGuid>9693ff1d-b9c0-41fb-8b2c-10ea0950c7ee</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://{ServiceIPAddress}{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>archie</DockerServiceName>
+    <DockerServiceName>archiesystem</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

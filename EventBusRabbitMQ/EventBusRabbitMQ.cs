@@ -19,13 +19,13 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
-        const string BROKER_NAME = "eshop_event_bus";
+        const string BROKER_NAME = "archie_event_bus";
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly ILifetimeScope _autofac;
-        private readonly string AUTOFAC_SCOPE_NAME = "eshop_event_bus";
+        private readonly string AUTOFAC_SCOPE_NAME = "archie_event_bus";
         private readonly int _retryCount;
 
         private IModel _consumerChannel;
@@ -71,7 +71,7 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ
             {
                 _persistentConnection.TryConnect();
             }
-
+            // adding Polly retry policy, retrieve number for task if not rready
             var policy = RetryPolicy.Handle<BrokerUnreachableException>()
                 .Or<SocketException>()
                 .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
