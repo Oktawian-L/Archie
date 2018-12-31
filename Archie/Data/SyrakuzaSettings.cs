@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CryptoAPI.Data
+namespace Archie.Data
 {
-    public class CryptoAPISettings
+    public class SyrakuzaSettings
     {
         public string EventBusConnection { get; set; }
         public bool UseCustomizationData { get; set; }
-
+   
     }
 }

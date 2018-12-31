@@ -1,23 +1,19 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Archie.Models;
 
-namespace GoldAPI
+namespace Archie.Data
 {
-    public class SpotAPIEntityTypeConfiguration : IEntityTypeConfiguration<SpotAPI>
+    internal class SpotsEntityTypeConfiguration : IEntityTypeConfiguration<Spots>
     {
-        public void Configure(EntityTypeBuilder<SpotAPI> builder)
+        public void Configure(EntityTypeBuilder<Spots> builder)
         {
-            builder.ToTable("SpotAPItable");
+            builder.ToTable("Spots");
 
             builder.HasKey(ci => ci.Id);
 
             /*builder.Property(ci => ci.Id)
-               .ForSqlServerUseSequenceHiLo("spotapi_hilo")
+               .ForSqlServerUseSequenceHiLo("spot_hilo")
                .IsRequired();*/
             builder.Property(cb => cb.dateInput)
                 .IsRequired();
@@ -28,6 +24,5 @@ namespace GoldAPI
             builder.Property(cb => cb.platiniumVal)
                 .IsRequired();
         }
-
     }
 }

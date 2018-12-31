@@ -9,9 +9,16 @@ namespace CryptoAPI.Models
 {
     public class CryptoAPIContext : DbContext
     {
+        private string v;
+
         public CryptoAPIContext (DbContextOptions<CryptoAPIContext> options)
             : base(options)
         {
+        }
+
+        public CryptoAPIContext(string v)
+        {
+            this.v = v;
         }
 
         public DbSet<Archie.Models.TickerStorage> TickerStorage { get; set; }

@@ -22,6 +22,9 @@ services:
 
   cryptoapi:
     image: olasek/cryptoapi
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
     build:
       context: .
       dockerfile: CryptoAPI\Dockerfile

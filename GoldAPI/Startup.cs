@@ -64,7 +64,7 @@ namespace GoldAPI
             {
                 // Service doesn't exist, do something
                 Console.WriteLine("nie ma takiej uslugi");
-                throw new System.InvalidOperationException("Logfile cannot be read-only");
+                throw new System.InvalidOperationException("nie ma takiej uslugi");
             }
         }
 

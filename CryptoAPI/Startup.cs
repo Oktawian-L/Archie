@@ -15,6 +15,7 @@ using Archie.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using CryptoAPI.Models;
+using CryptoAPI.Data;
 
 namespace CryptoAPI
 {
@@ -22,7 +23,7 @@ namespace CryptoAPI
     {
         public Startup(IConfiguration configuration)
         {
-            //Configuration = configuration;
+           Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -31,9 +32,10 @@ namespace CryptoAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddSingleton(_ => Configuration);
+            services.AddSingleton<CryptoAPIContext>(_ => new CryptoAPIContext(Configuration.GetConnectionString("archiedb")));
             services.AddDbContext<CryptoAPIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("CryptoAPIContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("archiedb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +50,8 @@ namespace CryptoAPI
                 app.UseHsts();
                 
             }
-
+            CryptoAPIContextSeed.SeedAsync(app)
+          .Wait();
             /*app.UseHttpsRedirection();
             app.UseMvc();
 

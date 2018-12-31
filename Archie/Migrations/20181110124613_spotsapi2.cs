@@ -10,7 +10,7 @@ namespace Archie.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "SpotsAPI",
+                name: "Spot",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -22,14 +22,14 @@ namespace Archie.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SpotsAPI", x => x.Id);
+                    table.PrimaryKey("PK_Spot", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SpotsAPI");
+                name: "Spot");
         }
     }
 }

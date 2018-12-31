@@ -98,7 +98,7 @@ namespace Archie.Migrations
                     b.ToTable("Trades");
                 });
 
-            modelBuilder.Entity("GoldAPI.Model.SpotAPI", b =>
+            modelBuilder.Entity("GoldAPI.Model.Spot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -113,7 +113,7 @@ namespace Archie.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SpotsAPI");
+                    b.ToTable("Spot");
                 });
 #pragma warning restore 612, 618
         }
