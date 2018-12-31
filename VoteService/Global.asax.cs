@@ -49,7 +49,7 @@ end
             string table = @"
 IF NOT EXISTS(select * from sys.objects where type ='U' and name = 'votes') 
 begin 
-CREATE TABLE archie.dbo.votes (id VARCHAR(255) NOT NULL PRIMARY KEY, vote VARCHAR(255) NOT NULL); 
+CREATE TABLE votes.dbo.votes (id VARCHAR(255) NOT NULL PRIMARY KEY, vote VARCHAR(255) NOT NULL); 
 end 
 
             ";
