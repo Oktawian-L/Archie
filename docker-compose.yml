@@ -55,8 +55,8 @@ services:
       dockerfile: Diagram\Dockerfile
 
   slider:
-    image: ${DOCKER_REGISTRY}slider
+    image: microsoft/aspnet:4.7.2-windowsservercore-1803
     build:
-      context: .\..\Users\Optimus\Desktop\Slider
+      context: .\Slider
       dockerfile: Dockerfile
 
