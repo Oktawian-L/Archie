@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Slider
+namespace VoteService
 {
     public class FilterConfig
     {
