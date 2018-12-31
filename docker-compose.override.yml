@@ -35,14 +35,10 @@ services:
     ports:
       - "80"
 
-  slider:
-    ports:
-      - "80"
 networks:
   default:
     external:
       name: nat
-
 
 
 
