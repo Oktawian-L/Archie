@@ -55,7 +55,7 @@ services:
       dockerfile: Diagram\Dockerfile
 
   voteservice:
-    image: ${DOCKER_REGISTRY}voteservice
+    image: olasek/slider
     container_name: voteservapp
     build:
       context: .\VoteService
