@@ -19,14 +19,14 @@ namespace VoteService
                 string tcpAddress = ConfigurationManager.AppSettings["sa_host"];
                 string dbPassword = ConfigurationManager.AppSettings["sa_password"];
 
-                return "Server=" + tcpAddress + ";Database=master;User Id=sa;Password=" + dbPassword + ";Integrated Security=False;Connect Timeout=30";
+                return "Server=sqldb,1433;Initial Catalog=master;Database=master;User Id=sa;Password=5uP3RC0mpl3Xp@55w0rD";
             }
         }
 
         private void Provision(string text)
         {
             var connectionString = ConnectionString;
-
+            Console.WriteLine("Dostalen connection stringa");
             using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
             {
                 connection.ConnectionString = connectionString;
@@ -45,11 +45,11 @@ BEGIN
     CREATE DATABASE Votes;
 end
             ";
-
+            Console.WriteLine("Tworze baza");
             string table = @"
 IF NOT EXISTS(select * from sys.objects where type ='U' and name = 'votes') 
 begin 
-CREATE TABLE votes.dbo.votes (id VARCHAR(255) NOT NULL PRIMARY KEY, vote VARCHAR(255) NOT NULL); 
+CREATE TABLE archie.dbo.votes (id VARCHAR(255) NOT NULL PRIMARY KEY, vote VARCHAR(255) NOT NULL); 
 end 
 
             ";
