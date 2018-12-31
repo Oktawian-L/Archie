@@ -53,10 +53,3 @@ services:
     build:
       context: .
       dockerfile: Diagram\Dockerfile
-
-  slider:
-    image: microsoft/aspnet:4.7.2-windowsservercore-1803
-    build:
-      context: .\Slider
-      dockerfile: Dockerfile
-

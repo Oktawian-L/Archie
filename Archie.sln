@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus", "EventBus\EventB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusRabbitMQ", "EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{9DE46EB5-93A4-47B1-AE82-EB14D9375837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slider", "Slider\Slider.csproj", "{220A9C59-9D1D-4A40-9D72-7E11C75A61CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService", "VoteService\VoteService.csproj", "{81AB9857-F98C-4E27-A4F7-A6D3F063D379}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +69,10 @@ Global
 		{9DE46EB5-93A4-47B1-AE82-EB14D9375837}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DE46EB5-93A4-47B1-AE82-EB14D9375837}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DE46EB5-93A4-47B1-AE82-EB14D9375837}.Release|Any CPU.Build.0 = Release|Any CPU
-		{220A9C59-9D1D-4A40-9D72-7E11C75A61CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{220A9C59-9D1D-4A40-9D72-7E11C75A61CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{220A9C59-9D1D-4A40-9D72-7E11C75A61CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{220A9C59-9D1D-4A40-9D72-7E11C75A61CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81AB9857-F98C-4E27-A4F7-A6D3F063D379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81AB9857-F98C-4E27-A4F7-A6D3F063D379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81AB9857-F98C-4E27-A4F7-A6D3F063D379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81AB9857-F98C-4E27-A4F7-A6D3F063D379}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
