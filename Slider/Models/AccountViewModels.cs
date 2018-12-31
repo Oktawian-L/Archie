@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VoteService.Models
+namespace Slider.Models
 {
     // Models returned by AccountController actions.
 
