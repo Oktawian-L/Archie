@@ -35,10 +35,14 @@ services:
     ports:
       - "80"
 
+  voteservice:
+    ports:
+      - "80"
 networks:
   default:
     external:
       name: nat
+
 
 
 

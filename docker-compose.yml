@@ -53,3 +53,10 @@ services:
     build:
       context: .
       dockerfile: Diagram\Dockerfile
+
+  voteservice:
+    image: ${DOCKER_REGISTRY}voteservice
+    build:
+      context: .\VoteService
+      dockerfile: Dockerfile
+
