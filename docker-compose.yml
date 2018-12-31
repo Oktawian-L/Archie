@@ -53,3 +53,10 @@ services:
     build:
       context: .
       dockerfile: Diagram\Dockerfile
+
+  slider:
+    image: ${DOCKER_REGISTRY}slider
+    build:
+      context: .\..\Users\Optimus\Desktop\Slider
+      dockerfile: Dockerfile
+
