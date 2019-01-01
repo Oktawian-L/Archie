@@ -60,10 +60,3 @@ services:
     build:
       context: .\VoteService
       dockerfile: Dockerfile
-
-  voteresult:
-    image: olasek/node-web-vote
-    build:
-      context: .
-      dockerfile: Suwak_result\Dockerfile
-
