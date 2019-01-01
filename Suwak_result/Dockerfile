@@ -1,4 +1,4 @@
-FROM stefanscherer/node-windows:4.6
+FROM olasek/node9
 
 
 
@@ -6,6 +6,7 @@ WORKDIR /app
 
 RUN npm install -g nodemon
 ADD package.json /app/package.json
+COPY package*.json ./
 RUN npm config set registry http://registry.npmjs.org
 RUN npm install
 RUN mv /app/node_modules /node_modules

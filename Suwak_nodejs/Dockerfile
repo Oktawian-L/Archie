@@ -1,4 +1,4 @@
-FROM olasek/node10
+FROM olasek/node9
 
 # folder dla apki na obrazie
 WORKDIR /usr/src/app
