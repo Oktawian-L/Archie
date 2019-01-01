@@ -1,6 +1,5 @@
 FROM stefanscherer/node-windows:4.6
 
-MAINTAINER alexellis2@gmail.com
 
 
 WORKDIR /app

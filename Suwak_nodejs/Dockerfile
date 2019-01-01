@@ -1,4 +1,4 @@
-FROM stefanscherer/node-windows:10
+FROM olasek/node10
 
 # folder dla apki na obrazie
 WORKDIR /usr/src/app
