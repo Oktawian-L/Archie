@@ -7,34 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="fonts\glyphicons-halflings-regular.eot" />
-    <None Remove="fonts\glyphicons-halflings-regular.svg" />
-    <None Remove="fonts\glyphicons-halflings-regular.ttf" />
-    <None Remove="fonts\glyphicons-halflings-regular.woff" />
-    <None Remove="passwords.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="passwords.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Update="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
   </ItemGroup>
 
 </Project>

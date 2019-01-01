@@ -1,19 +1,16 @@
-FROM olasek/node9
+FROM stefanscherer/node-windows:4.6
 
-# folder dla apki na obrazie
-WORKDIR /usr/src/app
 
-# Zaleznosci apki
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
 
+WORKDIR /app
+
+RUN npm install -g nodemon
+ADD package.json /app/package.json
+RUN npm config set registry http://registry.npmjs.org
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
+RUN mv /app/node_modules /node_modules
 
-# Bundle app source
-COPY . .
+ADD . /app
 
 ENV PORT 4000
 EXPOSE 4000
