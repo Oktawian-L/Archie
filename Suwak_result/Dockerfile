@@ -1,17 +1,19 @@
 FROM olasek/node9
 
+# folder dla apki na obrazie
+WORKDIR /usr/src/app
 
-
-WORKDIR /app
-
-RUN npm install -g nodemon
-ADD package.json /app/package.json
+# Zaleznosci apki
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
 COPY package*.json ./
-RUN npm config set registry http://registry.npmjs.org
-RUN npm install
-RUN mv /app/node_modules /node_modules
 
-ADD . /app
+RUN npm install
+# If you are building your code for production
+# RUN npm install --only=production
+
+# Bundle app source
+COPY . .
 
 ENV PORT 4000
 EXPOSE 4000
