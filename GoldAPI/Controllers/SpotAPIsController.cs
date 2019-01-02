@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldAPI.Controllers
-{// chce xml dostac 
-    //[Produces("application/json")]
+{
+    [Produces("application/json")]
     [Route("api/SpotAPIs")]
     public class SpotAPIsController : Controller
     {
@@ -44,7 +44,7 @@ namespace GoldAPI.Controllers
       //,[goldVal]
      // ,[silverVal]
      // ,[platiniumVal]
-                    command.CommandText = "select dateInput,goldVal,silverVal,platiniumVal from archie.dbo.SpotAPItable";
+                    command.CommandText = "select id,dateInput,goldVal,silverVal,platiniumVal from archie.dbo.SpotAPItable";
                     command.CommandType = System.Data.CommandType.Text;
                     connection.Open();
 
@@ -53,7 +53,11 @@ namespace GoldAPI.Controllers
                         while (reader.Read())
                         {
                             SpotAPI sp = new SpotAPI();
+                            sp.Id = reader.GetInt32(reader.GetOrdinal("id"));
                             sp.dateInput = reader.GetDateTime(reader.GetOrdinal("dateInput"));
+                            sp.goldVal = reader.GetDecimal(reader.GetOrdinal("goldVal"));
+                            sp.silverVal = reader.GetDecimal(reader.GetOrdinal("silverVal"));
+                            sp.platiniumVal = reader.GetDecimal(reader.GetOrdinal("platiniumVal"));
                             //TODO pozostale kolumny
                             results.Add(sp);
                            /* if ((string)reader["vote"] == "a")
