@@ -16,6 +16,7 @@ services:
 
   archiesystem:
     image: olasek/archie
+    container_name: archie
     build:
       context: .
       dockerfile: Archie\Dockerfile
@@ -32,48 +33,32 @@ services:
 
   goldapi:
     image: olasek/goldapi
+    container_name: goldapi
     build:
       context: .
       dockerfile: GoldAPI\Dockerfile
 
-  exchangeapi:
-    image: olasek/python
-    ports:
-    - "5000:5000"
+#  exchangeapi:
+#    image: olasek/python
+#    ports:
+#    - "5000:5000"
 
-  suwak:
-    image: olasek/suwak
-    build:
-      context: .
-      dockerfile: Suwak\Dockerfile
+#  suwak:
+#    image: olasek/suwak
+#    build:
+#      context: .
+#      dockerfile: Suwak\Dockerfile
 
 
-  diagram:
-    image: olasek/diagram
-    build:
-      context: .
-      dockerfile: Diagram\Dockerfile
+#  diagram:
+#    image: olasek/diagram
+#    build:
+#      context: .
+#      dockerfile: Diagram\Dockerfile
 
-  voteservice:
-    image: olasek/slider
-    container_name: voteservapp
-    build:
-      context: .\VoteService
-      dockerfile: Dockerfile
-
-  web:
-    image: olasek/web_app_node
-    container_name: voteres
-    build: 
-      context: .\Suwak_result
-      dockerfile: Dockerfile
-    command: npm run dev
-    volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
-    ports:
-      - "4000:4000"
-    depends_on:
-      - sqldb
-    environment:
-      - VOTE_SERVICE_URL=http://172.26.253.199/v1/voting/
+#  voteservice:
+#    image: olasek/slider
+#    container_name: voteservapp
+#    build:
+#      context: .\VoteService
+#      dockerfile: Dockerfile
