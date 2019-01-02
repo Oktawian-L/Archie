@@ -46,7 +46,7 @@ services:
     container_name: slider
     build:
       context: .
-      dockerfile: Suwak_nodej\Dockerfile 
+      dockerfile: Suwak_nodejs\Dockerfile 
     ports:
       - "8080:8080"
     environment: 
