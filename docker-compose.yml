@@ -1,5 +1,11 @@
 version: '3.4'
-
+networks:
+  default:
+    external:
+      name: natnetworks:
+  default:
+    external:
+      name: nat
 
 
 services:
