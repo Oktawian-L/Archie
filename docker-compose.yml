@@ -61,9 +61,19 @@ services:
       context: .\VoteService
       dockerfile: Dockerfile
 
-  voteresult:
-    image: olasek/node-web-vote
-    build:
-      context: .
-      dockerfile: Suwak_result\Dockerfile
-
+  web:
+    image: olasek/web_app_node
+    container_name: voteres
+    build: 
+      context: .\Suwak_result
+      dockerfile: Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "4000:4000"
+    depends_on:
+      - sqldb
+    environment:
+      - VOTE_SERVICE_URL=http://172.26.253.199/v1/voting/
