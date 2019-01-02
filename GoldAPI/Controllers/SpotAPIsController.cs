@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldAPI.Controllers
-{
-    [Produces("application/json")]
+{// chce xml dostac 
+    //[Produces("application/json")]
     [Route("api/SpotAPIs")]
     public class SpotAPIsController : Controller
     {
@@ -28,12 +28,13 @@ namespace GoldAPI.Controllers
         }*/
         [HttpGet]
         [Route("")]
-        public SpotsResult Get()
+        public List<SpotAPI> Get()
         {
-            var results = new SpotsResult
-            {
+            /* var results = new SpotsResult
+             {
 
-            };
+             };*/
+            List<SpotAPI> results = new List<SpotAPI>();
 
             using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
             {
@@ -54,7 +55,7 @@ namespace GoldAPI.Controllers
                             SpotAPI sp = new SpotAPI();
                             sp.dateInput = reader.GetDateTime(reader.GetOrdinal("dateInput"));
                             //TODO pozostale kolumny
-                            results.listaZbazy.Add(sp);
+                            results.Add(sp);
                            /* if ((string)reader["vote"] == "a")
                             {
                                 results.VoteA = reader.GetInt32(reader.GetOrdinal("votes"));
