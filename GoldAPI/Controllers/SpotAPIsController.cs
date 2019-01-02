@@ -43,7 +43,7 @@ namespace GoldAPI.Controllers
       //,[goldVal]
      // ,[silverVal]
      // ,[platiniumVal]
-                    command.CommandText = "select dateInput,goldVal,silverVal,platiniumVal from archie.dbo.SpotAPItable group by vote";
+                    command.CommandText = "select dateInput,goldVal,silverVal,platiniumVal from archie.dbo.SpotAPItable";
                     command.CommandType = System.Data.CommandType.Text;
                     connection.Open();
 
