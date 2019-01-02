@@ -1,0 +1,310 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+
+namespace GoldAPI.Controllers
+{
+    [Route("api/v1/[controller]")]
+    [ApiController]
+    public class CatalogController : ControllerBase
+    {
+        private readonly CatalogContext _catalogContext;
+        private readonly GoldAPISettings _settings;
+        private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
+
+        public CatalogController(CatalogContext context, IOptionsSnapshot<GoldAPISettings> settings, ICatalogIntegrationEventService catalogIntegrationEventService)
+        {
+            _catalogContext = context ?? throw new ArgumentNullException(nameof(context));
+            _catalogIntegrationEventService = catalogIntegrationEventService ?? throw new ArgumentNullException(nameof(catalogIntegrationEventService));
+            _settings = settings.Value;
+
+            ((DbContext)context).ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
+        // GET api/v1/[controller]/items[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("items")]
+       // [ProducesResponseType(typeof(PaginatedItemsViewModel<SpotAPI>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items([FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0, [FromQuery] string ids = null)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                return GetItemsByIds(ids);
+            }
+
+            var totalItems = await _catalogContext.SpotAPI
+                .LongCountAsync();
+
+            var itemsOnPage = await _catalogContext.SpotAPI
+                .OrderBy(c => c.dateInput)
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToListAsync();
+
+            itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+            /* var model = new PaginatedItemsViewModel<SpotAPI>(
+                 pageIndex, pageSize, totalItems, itemsOnPage);*/
+
+            //return Ok(model);
+            return Ok();
+        }
+
+        private IActionResult GetItemsByIds(string ids)
+        {
+            var numIds = ids.Split(',')
+                .Select(id => (Ok: int.TryParse(id, out int x), Value: x));
+
+            if (!numIds.All(nid => nid.Ok))
+            {
+                return BadRequest("ids value invalid. Must be comma-separated list of numbers");
+            }
+
+            var idsToSelect = numIds
+                .Select(id => id.Value);
+
+            var items = _catalogContext.SpotAPI.Where(ci => idsToSelect.Contains(ci.Id)).ToList();
+
+            items = ChangeUriPlaceholder(items);
+
+            return Ok(items);
+        }
+
+        [HttpGet]
+        [Route("items/{id:int}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(SpotAPI), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetItemById(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            var item = await _catalogContext.SpotAPI.SingleOrDefaultAsync(ci => ci.Id == id);
+
+            //var baseUri = _settings.PicBaseUrl;
+            //var azureStorageEnabled = _settings.AzureStorageEnabled;
+           // item.FillProductUrl(baseUri, azureStorageEnabled: azureStorageEnabled);
+
+            if (item != null)
+            {
+                return Ok(item);
+            }
+
+            return NotFound();
+        }
+
+        // GET api/v1/[controller]/items/withname/samplename[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("[action]/withname/{name:minlength(1)}")]
+        //[ProducesResponseType(typeof(PaginatedItemsViewModel<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items(string name, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        {
+
+            /*var totalItems = await _catalogContext.SpotAPI
+                .Where(c => c.dateInput..StartsWith(name))
+                .LongCountAsync();*/
+
+            /*var itemsOnPage = await _catalogContext.SpotAPI
+                .Where(c => c.Name.StartsWith(name))
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToListAsync();*/
+
+           // itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+            /*var model = new PaginatedItemsViewModel<SpotAPI>(
+                pageIndex, pageSize, totalItems, itemsOnPage);*/
+
+            return Ok();
+        }
+
+        // GET api/v1/[controller]/items/type/1/brand[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("[action]/type/{catalogTypeId}/brand/{catalogBrandId:int?}")]
+       // [ProducesResponseType(typeof(PaginatedItemsViewModel<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items(int catalogTypeId, int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        {
+            var root = (IQueryable<SpotAPI>)_catalogContext.SpotAPI;
+
+            //root = root.Where(ci => ci.CatalogTypeId == catalogTypeId);
+
+            if (catalogBrandId.HasValue)
+            {
+               // root = root.Where(ci => ci.CatalogBrandId == catalogBrandId);
+            }
+
+            var totalItems = await root
+                .LongCountAsync();
+
+            var itemsOnPage = await root
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToListAsync();
+
+            itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+           /* var model = new PaginatedItemsViewModel<CatalogItem>(
+                pageIndex, pageSize, totalItems, itemsOnPage);*/
+
+            return Ok();
+        }
+        // GET api/v1/[controller]/items/type/all/brand[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("[action]/type/all/brand/{catalogBrandId:int?}")]
+        //[ProducesResponseType(typeof(PaginatedItemsViewModel<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items(int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        {
+            var root = (IQueryable<SpotAPI>)_catalogContext.SpotAPI;
+
+            if (catalogBrandId.HasValue)
+            {
+               // root = root.Where(ci => ci.CatalogBrandId == catalogBrandId);
+            }
+
+            var totalItems = await root
+                .LongCountAsync();
+
+            var itemsOnPage = await root
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToListAsync();
+
+            itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+            /*var model = new PaginatedItemsViewModel<SpotAPI>(
+                pageIndex, pageSize, totalItems, itemsOnPage);*/
+
+            return Ok();
+        }
+
+        // GET api/v1/[controller]/CatalogTypes
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(List<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> CatalogTypes()
+        {
+            var items = await _catalogContext.SpotAPI
+                .ToListAsync();
+
+            return Ok(items);
+        }
+
+        // GET api/v1/[controller]/CatalogBrands
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(List<SpotAPI>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> CatalogBrands()
+        {
+           // var items = await _catalogContext.CatalogBrands
+            //    .ToListAsync();
+
+            return Ok();
+        }
+
+        //PUT api/v1/[controller]/items
+        [Route("items")]
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<IActionResult> UpdateProduct([FromBody]SpotAPI productToUpdate)
+        {
+            var catalogItem = await _catalogContext.SpotAPI
+                .SingleOrDefaultAsync(i => i.Id == productToUpdate.Id);
+
+            if (catalogItem == null)
+            {
+                return NotFound(new { Message = $"Item with id {productToUpdate.Id} not found." });
+            }
+
+          //  var oldPrice = catalogItem.Price;
+          //  var raiseProductPriceChangedEvent = oldPrice != productToUpdate.Price;
+
+
+            // Update current product
+          //  catalogItem = productToUpdate;
+          //  _catalogContext.SpotAPI.Update(catalogItem);
+
+            //if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
+         //   {
+                //Create Integration Event to be published through the Event Bus
+               // var priceChangedEvent = new ProductPriceChangedIntegrationEvent(catalogItem.Id, productToUpdate.Price, oldPrice);
+
+               // // Achieving atomicity between original Catalog database operation and the IntegrationEventLog thanks to a local transaction
+               // await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(priceChangedEvent);
+
+                // Publish through the Event Bus and mark the saved event as published
+               // await _catalogIntegrationEventService.PublishThroughEventBusAsync(priceChangedEvent);
+           // }
+            else // Just save the updated product because the Product's Price hasn't changed.
+            {
+                await _catalogContext.SaveChangesAsync();
+            }
+
+            return CreatedAtAction(nameof(GetItemById), new { id = productToUpdate.Id }, null);
+        }
+
+        //POST api/v1/[controller]/items
+        [Route("items")]//zmien na spotapi
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<IActionResult> CreateProduct([FromBody]SpotAPI product)
+        {
+            var item = new SpotAPI
+            {
+                /*CatalogBrandId = product.CatalogBrandId,
+                CatalogTypeId = product.CatalogTypeId,
+                Description = product.Description,
+                Name = product.Name,
+                PictureFileName = product.PictureFileName,
+                Price = product.Price*/
+            };
+            _catalogContext.SpotAPI.Add(item);
+
+            await _catalogContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, null);
+        }
+
+        //DELETE api/v1/[controller]/id
+        [Route("{id}")]
+        [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = _catalogContext.SpotAPI.SingleOrDefault(x => x.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            _catalogContext.SpotAPI.Remove(product);
+
+            await _catalogContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private List<SpotAPI> ChangeUriPlaceholder(List<SpotAPI> items)
+        {
+           // var baseUri = _settings.PicBaseUrl;
+           // var azureStorageEnabled = _settings.AzureStorageEnabled;
+
+            foreach (var item in items)
+            {
+                //item.FillProductUrl(baseUri, azureStorageEnabled: azureStorageEnabled);
+            }
+
+            return items;
+        }
+    }
+}

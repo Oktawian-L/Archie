@@ -22,8 +22,9 @@ namespace Archie.Data
             }
             if (context.Tickers.Any())
             {
-            }
                 return;   // DB has been seeded
+            }
+                
             if (context.Tickers.Any())
             {
                 return;   // DB has been seeded
