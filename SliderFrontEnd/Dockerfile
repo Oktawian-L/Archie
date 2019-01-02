@@ -1,17 +1,23 @@
-# base image
 FROM olasek/node9
 
-# set working directory
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+ENV NPM_CONFIG_LOGLEVEL warn
+ARG app_env
+ENV APP_ENV $app_env
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+RUN mkdir -p /frontend
+WORKDIR /frontend
+COPY ./frontend ./
 
-# install and cache app dependencies
-COPY package.json /usr/src/app/package.json
-RUN npm install --silent
-RUN npm install react-scripts@1.1.1 -g --silent
+RUN npm install
 
-# start app
-CMD ["npm", "start"]
+CMD if [ ${APP_ENV} = production ]; \
+	then \
+	npm install -g http-server && \
+	npm run build && \
+	cd build && \
+	hs -p 3000; \
+	else \
+	npm run start; \
+	fi
+
+EXPOSE 3000
