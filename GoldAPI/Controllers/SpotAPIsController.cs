@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GoldAPI.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,68 @@ namespace GoldAPI.Controllers
         }
 
         // GET: api/SpotAPIs
-        [HttpGet]
+        /*[HttpGet]
         public IEnumerable<SpotAPI> GetSpotAPI()
         {
             return _context.SpotAPI;
-        }
+        }*/
+        [HttpGet]
+        [Route("")]
+        public SpotsResult Get()
+        {
+            var results = new SpotsResult
+            {
 
+            };
+
+            using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
+            {
+                connection.ConnectionString = ConnectionString;
+                using (var command = connection.CreateCommand())
+                {   // ,[dateInput]
+      //,[goldVal]
+     // ,[silverVal]
+     // ,[platiniumVal]
+                    command.CommandText = "select dateInput,goldVal,silverVal,platiniumVal from archie.dbo.SpotAPItable group by vote";
+                    command.CommandType = System.Data.CommandType.Text;
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            SpotAPI sp = new SpotAPI();
+                            sp.dateInput = reader.GetDateTime(reader.GetOrdinal("dateInput"));
+                            //TODO pozostale kolumny
+                            results.listaZbazy.Add(sp);
+                           /* if ((string)reader["vote"] == "a")
+                            {
+                                results.VoteA = reader.GetInt32(reader.GetOrdinal("votes"));
+                            }*/
+                            /*else if ((string)reader["vote"] == "b")
+                            {
+                                results.VoteB = reader.GetInt32(reader.GetOrdinal("votes"));
+                            }*/
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                return new Db().ConnectionString;
+            }
+        }
+        public class SpotsResult
+        {
+            //public int VoteA { get; set; }
+            public List<SpotAPI> listaZbazy { get; set; }
+            //public int VoteB { get; set; }
+        }
         // GET: api/SpotAPIs/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpotAPI([FromRoute] int id)
