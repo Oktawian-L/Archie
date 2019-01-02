@@ -38,6 +38,7 @@ services:
       context: .
       dockerfile: GoldAPI\Dockerfile
 
+
 #  exchangeapi:
 #    image: olasek/python
 #    ports:
