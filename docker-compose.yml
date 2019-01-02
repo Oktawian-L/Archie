@@ -1,5 +1,8 @@
 version: '3.4'
 
+networks:
+  nat:
+    external: true
 
 
 services:
@@ -38,6 +41,23 @@ services:
       context: .
       dockerfile: GoldAPI\Dockerfile
 
+  sliderfrontend:
+    image: olasek/web-sli
+    container_name: slider
+    build:
+      context: .
+      dockerfile: Suwak_nodejs\Dockerfile 
+    ports:
+      - "8080:8080"
+    environment: 
+      - VOTE_SERVICE_URL=http://172.26.253.199/v1/voting/ 
+    networks:
+      - nat
+
+
+
+
+#docker run --net=nat --name badziprzyjdzan -p 8080:8080 -e VOTE_SERVICE_URL=http://172.26.253.199/v1/voting/ olasek/web-app-node
 #  exchangeapi:
 #    image: olasek/python
 #    ports:
