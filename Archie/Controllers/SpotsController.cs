@@ -48,11 +48,15 @@ namespace Archie.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Diagram()
+        /*public async Task<IActionResult> Diagram()
         {
             return View(await _context.Spots.ToListAsync());
-        }
+        }*/
         public IActionResult newView()
+        {
+            return View();
+        }
+        public IActionResult Diagram()
         {
             return View();
         }

@@ -1,0 +1,3 @@
+cd Suwak_result\
+docker build -t olasek/web-app-node .
+docker run --net=nat --name result_node -p 4000:4000 -e VOTE_SERVICE_URL=http://172.26.253.199/v1/voting/ olasek/web-app-node

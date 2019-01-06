@@ -4,7 +4,22 @@
     ViewData["Title"] = "Diagram";
 }
 
-<h2>Diagram</h2>
 <div id="container"></div>
+<div class="invest-container">
+    <h2>Invest time</h2>
+    <label for="amount">Amount of deposit: </label><input style="margin-left:15px" type="number" id="amount" />
+    <div>
+        <label style="margin-right:18px;">Crypto of interest:</label>
+        <select>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+        </select>
+    </div>
+
+    <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="50" class="slider" id="range">
+    </div>
+    <label for="expected">Expected profit: </label><input style="margin-left:15px" type="text" id="expected" />
+</div>
 
 
