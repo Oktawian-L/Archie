@@ -1,4 +1,6 @@
-﻿body {
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
+for details on configuring this project to bundle and minify static web assets. */
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -25,12 +27,48 @@
 #qrCode {
     margin: 15px;
 }
-
-.navbar-inverse {
-    background-color: #0A152D;
-    background-image: none;
+.invest-container {
+    color: #0D0027;
+}
+.slidecontainer {
+    width: 40%; /* Width of the outside container */
+}
+select {
+    padding: 5px;
+    background-color: #0D0027;
+    color: #FF6633;
+}
+/* The slider itself */
+.slider {
+    margin-top: 30px;
+    margin-bottom:30px;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 11px;
+    border-radius: 5px;
+    background: #0D0027;
+    outline: none;
+    -webkit-transition: opacity .15s ease-in-out;
+    transition: opacity .15s ease-in-out;
 }
 
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        border-radius:5px;
+        background: #FF6633;
+        cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        background: #4CAF50; /* Green background */
+        cursor: pointer; /* Cursor on hover */
+    }
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
