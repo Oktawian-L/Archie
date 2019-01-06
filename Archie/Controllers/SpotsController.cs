@@ -22,7 +22,41 @@ namespace Archie.Controllers
         // GET: Spots
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Spots.ToListAsync());
+            List<Spots> results = new List<Spots>();
+
+            using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
+            {
+                connection.ConnectionString = ConnectionString;
+                using (var command = connection.CreateCommand())
+                {   
+                    command.CommandText = "select id,dateInput,goldVal,silverVal,platiniumVal from archie.dbo.Spots;";
+                    command.CommandType = System.Data.CommandType.Text;
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Spots sp = new Spots();
+                            sp.Id = reader.GetInt32(reader.GetOrdinal("id"));
+                            sp.dateInput = reader.GetDateTime(reader.GetOrdinal("dateInput"));
+                            sp.goldVal = reader.GetDecimal(reader.GetOrdinal("goldVal"));
+                            sp.silverVal = reader.GetDecimal(reader.GetOrdinal("silverVal"));
+                            sp.platiniumVal = reader.GetDecimal(reader.GetOrdinal("platiniumVal"));
+                            results.Add(sp);
+                        
+                        }
+                    }
+                }
+            }
+            return View(results);
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                return new Db().ConnectionString;
+            }
         }
 
         // GET: Spots/Details/5

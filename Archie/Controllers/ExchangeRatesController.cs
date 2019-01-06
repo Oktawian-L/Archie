@@ -22,7 +22,42 @@ namespace Archie.Controllers
         // GET: ExchangeRates
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExchangeRates.ToListAsync());
+            List<ExchangeRate> results = new List<ExchangeRate>();
+
+            using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
+            {
+                connection.ConnectionString = ConnectionString;
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "select id,dateInput,EUR,GBP,PLN from archie.dbo.ExchangeRates;";
+                    command.CommandType = System.Data.CommandType.Text;
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ExchangeRate sp = new ExchangeRate();
+                            sp.Id = reader.GetInt32(reader.GetOrdinal("id"));
+                            sp.dateInput = reader.GetDateTime(reader.GetOrdinal("dateInput"));
+                            //wadliwe typy SQL
+                            //sp.EUR= reader.GetDouble(reader.GetOrdinal("EUR"));
+                           // sp.GBP = reader.GetDouble(reader.GetOrdinal("GBP"));
+                           // sp.PLN = reader.GetDouble(reader.GetOrdinal("PLN"));
+                            results.Add(sp);
+
+                        }
+                    }
+                }
+            }
+            return View(results);
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                return new Db().ConnectionString;
+            }
         }
 
         // GET: ExchangeRates/Details/5

@@ -22,7 +22,43 @@ namespace Archie.Controllers
         // GET: Trades
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Trades.ToListAsync());
+            List<Trade> results = new List<Trade>();
+
+            using (var connection = System.Data.SqlClient.SqlClientFactory.Instance.CreateConnection())
+            {
+                connection.ConnectionString = ConnectionString;
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "select id,amount,closeRate,rate,transactionTime  from archie.dbo.Trades;";
+                    command.CommandType = System.Data.CommandType.Text;
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Trade sp = new Trade();
+                            sp.Id = reader.GetInt32(reader.GetOrdinal("id"));
+                            sp.amount = reader.GetDecimal(reader.GetOrdinal("amount"));
+                            sp.closeRate = reader.GetDecimal(reader.GetOrdinal("closeRate"));
+                            sp.rate = reader.GetDecimal(reader.GetOrdinal("rate"));
+                            sp.transactionTime = reader.GetDateTime(reader.GetOrdinal("transactionTime"));
+
+        
+                            results.Add(sp);
+
+                        }
+                    }
+                }
+            }
+            return View(results);
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                return new Db().ConnectionString;
+            }
         }
 
         // GET: Trades/Details/5
