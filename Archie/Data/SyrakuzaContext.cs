@@ -23,7 +23,7 @@ namespace Archie.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=sqldb,1433;Initial Catalog=archie;Database=archie;User Id=sa;Password=5uP3RC0mpl3Xp@55w0rD");
+            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=archie;Trusted_Connection=True;ConnectRetryCount=0");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
