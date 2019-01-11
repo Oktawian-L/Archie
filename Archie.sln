@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9693FF1D-B9C0-41FB-8B2C-10EA0950C7EE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoAPI", "CryptoAPI\CryptoAPI.csproj", "{4124CBB0-45C1-492A-AA1F-09F0082BE591}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoldAPI", "GoldAPI\GoldAPI.csproj", "{A8E56DA4-73DA-45D8-94E0-3B938F7A772C}"
@@ -27,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9693FF1D-B9C0-41FB-8B2C-10EA0950C7EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9693FF1D-B9C0-41FB-8B2C-10EA0950C7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9693FF1D-B9C0-41FB-8B2C-10EA0950C7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9693FF1D-B9C0-41FB-8B2C-10EA0950C7EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4124CBB0-45C1-492A-AA1F-09F0082BE591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4124CBB0-45C1-492A-AA1F-09F0082BE591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4124CBB0-45C1-492A-AA1F-09F0082BE591}.Release|Any CPU.ActiveCfg = Release|Any CPU
