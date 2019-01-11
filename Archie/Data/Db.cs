@@ -13,8 +13,8 @@ namespace Archie.Data
             {
                 //string tcpAddress = ConfigurationManager.AppSettings["sa_host"];
                 //string dbPassword = ConfigurationManager.AppSettings["sa_password"];
-
-                return "Server=sqldb,1433;Initial Catalog=archie;Database=archie;User Id=sa;Password=5uP3RC0mpl3Xp@55w0rD";
+                var connection = @"Server=(localdb)\mssqllocaldb;Database=archie;Trusted_Connection=True;ConnectRetryCount=0";
+                return connection;
             }
         }
 

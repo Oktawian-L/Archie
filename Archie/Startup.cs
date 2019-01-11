@@ -24,9 +24,10 @@ namespace Archie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=archie;Trusted_Connection=True;ConnectRetryCount=0";
             Console.WriteLine("Stawiam uslugi");
             services.AddSingleton(_ => Configuration);
-            services.AddSingleton<SyrakuzaContext>(_ => new SyrakuzaContext(Configuration.GetConnectionString("archiedb")));
+            services.AddSingleton<SyrakuzaContext>(_ => new SyrakuzaContext(Configuration.GetConnectionString(connection)));
             services.AddMvc();
         }
 
