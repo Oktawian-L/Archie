@@ -22,6 +22,8 @@ services:
   archiesystem:
     image: olasek/archie
     container_name: archie
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       dockerfile: Archie\Dockerfile
